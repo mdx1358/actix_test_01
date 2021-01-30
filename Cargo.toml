@@ -1,6 +1,6 @@
 [package]
-authors = ["Render Developers <dev@render.com>"]
-name = "actix-todo"
+authors = ["mdx"]
+name = "actix_test_01"
 version = "0.1.1"
 edition = "2018"
 

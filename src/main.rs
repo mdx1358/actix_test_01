@@ -24,16 +24,22 @@ mod session;
 
 static SESSION_SIGNING_KEY: &[u8] = &[0; 32];
 
-fn main() -> io::Result<()> {
+fn main() -> io::Result<()>
+{
     dotenv().ok();
 
     env::set_var("RUST_LOG", "actix_todo=debug,actix_web=info");
     env_logger::init();
 
-    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    //let database_url = "postgres://localhost/postgres?user=postgres&password=1358";
+    let database_url = "postgres://mdx:bsUMCmzWXkwwyrjHjKpkLTPbcSCqGJZB@frankfurt-postgres.render.com/main_kwer";
+
+    //let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    //let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
     let pool = db::init_pool(&database_url).expect("Failed to create pool");
 
-    let app = move || {
+    let app = move ||
+        {
         debug!("Constructing the App");
 
         let templates: Tera = compile_templates!("templates/**/*");
@@ -63,5 +69,5 @@ fn main() -> io::Result<()> {
     };
 
     debug!("Starting server");
-    HttpServer::new(app).bind("0.0.0.0:8088")?.run()
+    HttpServer::new(app).bind("127.0.0.0:8088")?.run()
 }
